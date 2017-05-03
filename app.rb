@@ -12,6 +12,17 @@ configure :development do
 	DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/db.db")
 end
 
+configure :test do
+        require 'dm-sqlite-adapter'
+        DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/test.db")
+end
+
+configure :production do
+    require 'dm-postgres-adapter'
+    DataMapper.setup(:default, 'postgres:postgres://alistair:Hash4214@localhost/gmm_volunteer')
+end
+
+
 register Sinatra::CrossOrigin
 set :expose_headers, ['API_KEY']
 set :allow_credentials, true
