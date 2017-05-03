@@ -1,0 +1,10 @@
+<% @tasks.each do |task| %>
+  <li>
+    <%= task.title %>
+    <form action="/api/tasks/<%= task.id %>" method="POST">
+      <input name="_method" type="hidden" value="delete" />
+      <button type="submit">Delete</button>
+    </form>
+    <a href="/tasks/<%= task.id %>/edit" class="button-primary">Edit</a>
+  </li>
+<% end %>
