@@ -13,8 +13,8 @@ configure :development do
 end
 
 configure :test do
-        require 'dm-sqlite-adapter'
-        DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/test.db")
+    require 'dm-sqlite-adapter'
+    DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/test.db")
 end
 
 configure :production do
