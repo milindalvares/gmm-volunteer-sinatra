@@ -15,7 +15,7 @@ end
 register Sinatra::CrossOrigin
 set :expose_headers, ['API_KEY']
 set :allow_credentials, true
-set :allow_origin, "http://localhost:4200"
+set :allow_origin, "http://localhost:4200,http://128.199.218.232"
 configure do
   enable :cross_origin
 end
@@ -51,7 +51,7 @@ class BaseSerializer
   include JSONAPI::Serializer
 
   def self_link
-    "http://localhost:9292#{super}"
+    "http://128.199.218.232/api#{super}"
   end
 end
 
