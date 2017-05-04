@@ -141,12 +141,12 @@ namespace '/api' do
     content_type :json
   end
 
-  get '/tasks' do
+  get '/tasks/?' do
     tasks = Task.all
     serialize_models(tasks).to_json
   end
 
-  get '/tasks/:id' do
+  get '/tasks/:id/?' do
     task = Task.get(params[:id])
     serialize_model(task).to_json
   end
@@ -158,14 +158,14 @@ namespace '/api' do
     redirect :'tasks'
   end
 
-  put '/tasks/:id' do
+  put '/tasks/:id/?' do
     protected_ajax
     task = Task.get(params[:id])
     task.update(params[:task])
     redirect :'tasks'
   end
 
-  delete '/tasks/:id' do
+  delete '/tasks/:id/?' do
     protected_ajax
     task = Task.get(params[:id])
     task.destroy
