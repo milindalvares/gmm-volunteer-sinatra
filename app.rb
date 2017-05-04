@@ -42,9 +42,6 @@ helpers do
     @auth ||=  Rack::Auth::Basic::Request.new(request.env)
     @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == ['admin', 'admin']
   end
-  def protected_ajax
-    halt 401 unless request.env["HTTP_AUTHTOKEN"] == "58jdc60b-c891-9981-8821-939p0121609b"
-  end
 end
 
 class Task
@@ -152,21 +149,21 @@ namespace '/api' do
   end
 
   post '/tasks/?' do
-    protected_ajax
+		protected!
     task = params[:task]
     Task.create(:title => task[:title], :description => task[:description], :additional => task[:additional])
     redirect :'tasks'
   end
 
   put '/tasks/:id/?' do
-    protected_ajax
+		protected!
     task = Task.get(params[:id])
     task.update(params[:task])
     redirect :'tasks'
   end
 
   delete '/tasks/:id/?' do
-    protected_ajax
+		protected!
     task = Task.get(params[:id])
     task.destroy
     redirect :'tasks'
