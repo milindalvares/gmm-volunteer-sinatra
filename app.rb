@@ -48,9 +48,9 @@ class Task
   include DataMapper::Resource
 
   property :id, Serial
-  property :title, String
-  property :description, String
-  property :additional, String
+  property :title, String, :length => 500
+  property :description, String, :length => 500
+  property :additional, String, :length => 500
 end
 
 DataMapper.finalize
