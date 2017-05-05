@@ -93,10 +93,8 @@ helpers do
 end
 
 get '/migrate' do
+	protected!
   DataMapper.auto_migrate!
-  Task.create(:title => "Test1", description: "Test Description1", :additional => "Additional test")
-  Task.create(:title => "Test2", description: "Test Description2", :additional => "Additional test")
-  Task.create(:title => "Test3", description: "Test Description3", :additional => "Additional test")
 
   erb "Success"
 end
