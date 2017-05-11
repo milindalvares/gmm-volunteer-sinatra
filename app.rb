@@ -6,6 +6,7 @@ require 'jsonapi-serializers'
 require 'sinatra/cross_origin'
 require 'sinatra/namespace'
 require 'sinatra/form_helpers'
+require 'pony'
 
 configure :development do
 	require 'dm-sqlite-adapter'
@@ -121,10 +122,37 @@ get '/tasks/?' do
   erb :tasks
 end
 
+post '/send' do
+	to =	"rahulbasu1@gmail.com"
+	name = params[:name]
+	contact = params[:contact]
+	worktime = params[:worktime]
+	body = ""
+	body << "<strong>Name</strong> #{name} <br/>" unless name.nil?
+	body << "<strong>Contact</strong> #{contact} <br/>" unless contact.nil?
+	body << "<strong>Worktime</strong> #{worktime} <br/>" unless worktime.nil?
+
+	Pony.mail(
+		:from => "Goenchimati-volunteer<noreply@volunteer.goenchimati.org>",
+		:to => to,
+		:cc => "milind@hashcooki.es",
+		:subject => "Message From Goenchimati Volunteer",
+		:html_body => body,
+		:via => :smtp,
+		:via_options => {
+			  :address              => 'smtp.mailgun.org',
+	        :port                 => '587',
+				:user_name            => '',
+				:password             => '',
+	        :authentication       => :plain
+		}
+	)
+end
+
 options "*" do
   response.headers["Allow"] = "HEAD,GET,PUT,POST,DELETE,OPTIONS"
 
-  response.headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept, AUTHTOKEN"
+  response.headers["Access-Control-Allow-Headers"] = "Access-Control-Allow-Origin, X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept, AUTHTOKEN"
 
   200
 end
