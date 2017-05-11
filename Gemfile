@@ -8,6 +8,7 @@ gem "sequel"
 gem "sinatra-cross_origin"
 gem "sinatra-contrib"
 gem 'sinatra-formhelpers-ng'
+gem 'pony'
 
 group :development do
 	gem 'sqlite3'
